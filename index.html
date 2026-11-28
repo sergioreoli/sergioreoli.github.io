@@ -81,6 +81,15 @@ a.name:hover { color: var(--blue); }
 .site:hover { text-decoration: underline; }
 code { font: .78rem var(--mono); color: var(--muted); }
 .status { color: var(--muted); padding: 24px 0; }
+.apps-list { max-width: 1000px; margin: 0; padding: 0; list-style: none; }
+.apps-list li { display: grid; grid-template-columns: minmax(120px, .8fr) minmax(160px, 1fr) minmax(200px, 1.4fr);
+  gap: 16px; padding: 14px 0; border-top: 1px solid var(--line); align-items: baseline; }
+.apps-list li:last-child { border-bottom: 1px solid var(--line); }
+.app-name { font-weight: 600; text-decoration: none; }
+.app-name:hover, .app-link:hover { color: var(--blue); }
+.app-desc { color: var(--muted); font: 400 .9rem/1.5 var(--sans); }
+.app-link { color: var(--blue); font-size: .85rem; overflow-wrap: anywhere; }
+.app-command { color: var(--muted); font-size: .8rem; overflow-wrap: anywhere; }
 
 footer { margin-top: 64px; padding: 24px 0 48px; border-top: 1px solid var(--line); color: var(--muted); font-size: .8rem; }
 footer a { color: var(--text); }
@@ -93,6 +102,9 @@ footer a { color: var(--text); }
   .page { margin: 0; padding: 0 20px; }
   .tabs ul { gap: 20px; }
   .tabs .btn { display: none; }
+}
+@media (max-width: 640px) {
+  .apps-list li { grid-template-columns: 1fr; gap: 4px; }
 }
 </style>
 </head>
@@ -141,7 +153,7 @@ footer a { color: var(--text); }
 
     <section id="apps-section" aria-labelledby="apps-title">
       <h2 id="apps-title">Aplicativos open source que eu uso</h2>
-      <div id="apps" class="grid"></div>
+      <ul id="apps" class="apps-list"></ul>
     </section>
 
   </main>
@@ -239,31 +251,31 @@ $("sort").addEventListener("change", render);
 
 // >>>  SEUS APLICATIVOS OPEN SOURCE : (edite à vontade) <<<
 const APPS = [
-  { name: "Debian",      desc: "Linux",                        url: "https://www.debian.org" },
-  { name: "LMDE",        desc: "Linux",                        url: "https://linuxmint.com/" },
-  { name: "Favnyr",      desc: "File Manager",                 url: "https://github.com/GlitchAwakened/Favnyr" },
-  { name: "KeePassXC",   desc: "Gerenciador de senhas",        url: "https://keepassxc.org/" },
-  { name: "GenOffice",   desc: "Suite Offe",                   url: "https://genoffice.ai/" },
-  { name: "VS Code",     desc: "Visual Studio Code",           url: "https://www.visualstudio.com" },
-  { name: "OBS Studio",  desc: "Gravação e streaming",         url: "https://obsproject.com/" },
-  { name: "Drift",       desc: "Editor Vídeo",                 url: "https://cutwire.org/drift/" },
-  { name: "Inkscape",    desc: "Editor de gráficos vetoriais", url: "https://inkscape.org/" },
-  { name: "Photon",      desc: "Editor Imagem",                url: "flatpak install com.tenzen.photon" },
-  { name: "Audacity",    desc: "Editor Áudio",                 url: "flatpak install org.audacityteam.Audacity" }
+  { name: "Debian",      desc: "SO Linux",                      url: "https://debian.org" },
+  { name: "LMDE",        desc: "SO Linux",                      url: "https://linuxmint.com" },
+  { name: "Favnyr",      desc: "Gerenciador de arquivos",       url: "https://github.com/GlitchAwakened/Favnyr" },
+  { name: "KeePassXC",   desc: "Gerenciador de senhas",         url: "https://keepassxc.org" },
+  { name: "GenOffice",   desc: "Suite Office",                  url: "https://genoffice.ai" },
+  { name: "VS Code",     desc: "Visual Studio Code",            url: "https://visualstudio.com" },
+  { name: "OBS Studio",  desc: "Gravação e streaming",          url: "https://obsproject.com" },
+  { name: "Drift",       desc: "Editor Vídeo",                  url: "https://cutwire.org/drift" },
+  { name: "Inkscape",    desc: "Editor de gráficos vetoriais",  url: "https://inkscape.org" },
+  { name: "Photon",      desc: "Editor Imagem",                 url: "flatpak install com.tenzen.photon" },
+  { name: "Audacity",    desc: "Editor Áudio",                  url: "flatpak install org.audacityteam.Audacity" }
 ];
 
 $("apps").replaceChildren(...APPS.map((a, i) => {
-  const c = el("div", "card");
-  c.append(el("div", "idx", pad(i + 1)));
+  const item = el("li");
   if (/^https?:\/\//.test(a.url)) {
-    const link = el("a", "name", a.name);
+    const name = el("a", "app-name", a.name);
+    name.href = a.url; name.target = "_blank"; name.rel = "noopener";
+    const link = el("a", "app-link", a.url.replace(/^https?:\/\//, ""));
     link.href = a.url; link.target = "_blank"; link.rel = "noopener";
-    c.append(link, el("span", "sec", a.desc));
+    item.append(name, el("span", "app-desc", a.desc), link);
   } else {
-    // comandos (ex.: flatpak) aparecem como texto, não como link
-    c.append(el("span", "name", a.name), el("span", "sec", a.desc), el("code", "", a.url));
+    item.append(el("span", "app-name", a.name), el("span", "app-desc", a.desc), el("code", "app-command", a.url));
   }
-  return c;
+  return item;
 }));
 
 load();
