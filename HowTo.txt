@@ -1,0 +1,88 @@
+
+# ==========================================
+# Sergio ReOli - 
+# https://sergioreoli.github.io/
+#
+# 1. INICIALIZAÇÃO
+# ==========================================
+
+# Inicializa um novo repositório Git no diretório atual
+git init
+
+# Clona um repositório remoto para o computador
+git clone https://github.com/usuario/repositorio.git
+
+
+# ==========================================
+# 2. ALTERAÇÕES
+# ==========================================
+
+# Exibe o estado atual do repositório
+# Mostra arquivos modificados, novos e prontos para commit
+git status
+
+# Adiciona um arquivo específico à área de preparação (staging)
+git add arquivo.txt
+
+# Adiciona todas as alterações do diretório atual
+git add .
+
+# Registra as alterações preparadas com uma mensagem
+git commit -m "Descrição das alterações"
+
+
+# ==========================================
+# 3. REVERSÃO
+# ==========================================
+
+# Desfaz o último commit, mantendo as alterações preparadas
+git reset --soft HEAD~1
+
+# Desfaz o último commit e mantém as alterações nos arquivos
+# fora da área de preparação
+git reset HEAD~1
+
+# Descarta alterações não confirmadas de um arquivo específico
+git checkout -- arquivo.txt
+
+
+# ==========================================
+# 4. BRANCHES (RAMIFICAÇÕES)
+# ==========================================
+
+# Lista as branches existentes no repositório
+git branch
+
+# Cria uma nova branch
+git branch nome-da-branch
+
+# Alterna para uma branch existente
+git checkout nome-da-branch
+
+# Cria uma nova branch e muda para ela
+git checkout -b nova-branch
+
+
+# ==========================================
+# 5. PUBLICAÇÃO E ATUALIZAÇÃO
+# ==========================================
+
+# Busca atualizações do repositório remoto e integra
+# as alterações à branch local
+git pull
+
+# Envia os commits locais para o repositório remoto
+git push
+
+# Busca informações e atualizações do repositório remoto
+# sem integrá-las automaticamente à branch atual
+git fetch
+
+
+# Observações importantes
+# - Commit: registra uma versão das alterações no histórico local.
+# - Push: publica os commits no repositório remoto, como o GitHub.
+# - Pull: atualiza o repositório local com as alterações remotas.
+# - Fetch: consulta atualizações remotas sem aplicá-las automaticamente.
+# - Reset: exige atenção, pois dependendo da opção utilizada pode descartar alterações.
+# - Checkout: é um comando tradicional que também pode ser substituído por git switch e git restore em operações específicas.
