@@ -264,7 +264,7 @@ const APPS = [
   { name: "Audacity",    desc: "Editor Áudio",                  url: "flatpak install org.audacityteam.Audacity" }
 ];
 
-$("apps").replaceChildren(...APPS.map((a, i) => {
+$("apps").replaceChildren(...APPS.map(a => {
   const item = el("li");
   if (/^https?:\/\//.test(a.url)) {
     const name = el("a", "app-name", a.name);
