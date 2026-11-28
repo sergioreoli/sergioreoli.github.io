@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Referência rápida dos comandos Git mais utilizados, com explicações em português.">
+  <title>Git, sem complicação — Sergio ReOli</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f8f9f6;
+      --surface: #ffffff;
+      --text: #252a26;
+      --muted: #7d847d;
+      --line: #e5e8e1;
+      --green: #26734d;
+      --green-soft: #eaf3ed;
+      --code: #294638;
+      --shadow: 0 12px 36px rgba(30, 48, 37, .06);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    a { color: var(--green); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .page { width: min(900px, calc(100% - 40px)); margin: 0 auto; padding: 68px 0 52px; }
+    .eyebrow {
+      color: var(--green); font-size: .78rem; font-weight: 750;
+      letter-spacing: .13em; text-transform: uppercase; margin: 0 0 14px;
+    }
+    h1 {
+      font-size: clamp(2.6rem, 7vw, 4.25rem);
+      line-height: 1.04; letter-spacing: -.065em; margin: 0;
+      font-weight: 780;
+    }
+    .intro { color: var(--muted); font-size: 1.12rem; max-width: 560px; margin: 18px 0 34px; }
+    .topline { border-bottom: 1px solid var(--line); margin-bottom: 10px; }
+    .section { padding: 27px 0 25px; border-bottom: 1px solid var(--line); }
+    .section-heading { display: flex; align-items: baseline; gap: 14px; margin-bottom: 14px; }
+    .number { color: var(--green); font-size: .78rem; font-weight: 800; }
+    h2 { font-size: 1.12rem; margin: 0; letter-spacing: -.025em; }
+    .command {
+      display: grid; grid-template-columns: minmax(220px, .82fr) 1.18fr;
+      gap: 22px; align-items: baseline; padding: 8px 0;
+    }
+    code {
+      color: var(--code); font: 500 .94rem/1.55 "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      overflow-wrap: anywhere;
+    }
+    .description { color: var(--muted); font-size: .94rem; }
+    .note {
+      margin-top: 30px; padding: 23px 25px; background: var(--green-soft);
+      border-radius: 12px; border: 1px solid #dcebe0;
+    }
+    .note h2 { margin-bottom: 12px; }
+    .note ul { margin: 0; padding-left: 20px; color: #53665a; }
+    .note li { padding: 4px 0; }
+    .note strong { color: #304b3a; }
+    .footer {
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+      color: var(--muted); font-size: .82rem; padding-top: 30px;
+    }
+    .footer a { font-weight: 650; }
+    @media (max-width: 620px) {
+      .page { width: min(100% - 32px, 900px); padding-top: 42px; }
+      .command { grid-template-columns: 1fr; gap: 1px; padding: 9px 0; }
+      .description { padding-left: 0; }
+      .note { padding: 19px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <p class="eyebrow">Referência essencial</p>
+      <h1>Git, sem complicação.</h1>
+      <p class="intro">Os comandos mais usados para iniciar um repositório, acompanhar mudanças, desfazer alterações e trabalhar com branches.</p>
+    </header>
+    <div class="topline"></div>
+
+    <section class="section" aria-labelledby="inicializacao">
+      <div class="section-heading"><span class="number">01</span><h2 id="inicializacao">Inicialização</h2></div>
+      <div class="command"><code>git init</code><span class="description">Inicializa um novo repositório Git no diretório atual.</span></div>
+      <div class="command"><code>git clone https://github.com/usuario/repositorio.git</code><span class="description">Clona um repositório remoto para o computador.</span></div>
+    </section>
+
+    <section class="section" aria-labelledby="alteracoes">
+      <div class="section-heading"><span class="number">02</span><h2 id="alteracoes">Alterações</h2></div>
+      <div class="command"><code>git status</code><span class="description">Exibe o estado atual do repositório: arquivos modificados, novos e prontos para commit.</span></div>
+      <div class="command"><code>git add arquivo.txt</code><span class="description">Adiciona um arquivo específico à área de preparação (staging).</span></div>
+      <div class="command"><code>git add .</code><span class="description">Adiciona todas as alterações do diretório atual à área de preparação.</span></div>
+      <div class="command"><code>git commit -m "Descrição das alterações"</code><span class="description">Registra as alterações preparadas com uma mensagem no histórico local.</span></div>
+    </section>
+
+    <section class="section" aria-labelledby="reversao">
+      <div class="section-heading"><span class="number">03</span><h2 id="reversao">Reversão</h2></div>
+      <div class="command"><code>git reset --soft HEAD~1</code><span class="description">Desfaz o último commit, mantendo as alterações na área de preparação.</span></div>
+      <div class="command"><code>git reset HEAD~1</code><span class="description">Desfaz o último commit e mantém as alterações nos arquivos, fora da área de preparação.</span></div>
+      <div class="command"><code>git checkout -- arquivo.txt</code><span class="description">Descarta alterações não confirmadas de um arquivo específico.</span></div>
+    </section>
+
+    <section class="section" aria-labelledby="branches">
+      <div class="section-heading"><span class="number">04</span><h2 id="branches">Branches (ramificações)</h2></div>
+      <div class="command"><code>git branch</code><span class="description">Lista as branches existentes no repositório.</span></div>
+      <div class="command"><code>git branch nome-da-branch</code><span class="description">Cria uma nova branch.</span></div>
+      <div class="command"><code>git checkout nome-da-branch</code><span class="description">Alterna para uma branch existente.</span></div>
+      <div class="command"><code>git checkout -b nova-branch</code><span class="description">Cria uma nova branch e muda para ela.</span></div>
+    </section>
+
+    <section class="section" aria-labelledby="publicacao">
+      <div class="section-heading"><span class="number">05</span><h2 id="publicacao">Publicação e atualização</h2></div>
+      <div class="command"><code>git pull</code><span class="description">Busca atualizações do repositório remoto e integra as alterações à branch local.</span></div>
+      <div class="command"><code>git push</code><span class="description">Envia os commits locais para o repositório remoto, como o GitHub.</span></div>
+      <div class="command"><code>git fetch</code><span class="description">Busca informações e atualizações do repositório remoto sem integrá-las automaticamente à branch atual.</span></div>
+    </section>
+
+    <aside class="note" aria-labelledby="observacoes">
+      <h2 id="observacoes">Observações importantes</h2>
+      <ul>
+        <li><strong>Commit:</strong> registra uma versão das alterações no histórico local.</li>
+        <li><strong>Push:</strong> publica os commits no repositório remoto, como o GitHub.</li>
+        <li><strong>Pull:</strong> atualiza o repositório local com as alterações remotas.</li>
+        <li><strong>Fetch:</strong> consulta atualizações remotas sem aplicá-las automaticamente.</li>
+        <li><strong>Reset:</strong> exige atenção, pois dependendo da opção utilizada pode descartar alterações.</li>
+        <li><strong>Checkout:</strong> comando tradicional que também pode ser substituído por <code>git switch</code> e <code>git restore</code> em operações específicas.</li>
+      </ul>
+    </aside>
+
+    <footer class="footer">
+      <span>Referência rápida · Git</span>
+      <a href="https://sergioreoli.github.io/" target="_blank" rel="noopener noreferrer">Sergio ReOli ↗</a>
+    </footer>
+  </main>
+</body>
+</html>
